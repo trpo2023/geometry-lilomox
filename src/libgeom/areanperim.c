@@ -1,6 +1,5 @@
 #include <libgeom/areanperim.h>
 #include <math.h>
-#include <stdlib.h>
 
 double garea(double x)
 {
