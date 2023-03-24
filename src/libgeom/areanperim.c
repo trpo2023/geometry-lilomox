@@ -8,6 +8,6 @@ double garea(double x)
 
 double gperim(double x)
 {
-    return M_PI * 2 * x;
+    return M_PI * (double)2 * x;
 }
 
