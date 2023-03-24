@@ -33,4 +33,5 @@ int main()
     printf("area of 3d circle = %lf;    perimeter = %lf\n\n", garea(out3[2]), gperim(out3[2]));
 
     fclose(file);
+    return 0;
 }
