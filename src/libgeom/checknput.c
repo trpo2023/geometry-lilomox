@@ -1,12 +1,7 @@
+#include <libgeom/checknput.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-typedef struct IntVector {
-    char* data;
-    size_t size;
-    size_t capacity;
-} IntVector;
 
 IntVector* int_vector_new(size_t capacity)
 {
@@ -156,25 +151,4 @@ void check_and_put(char* mass, double* out, int n)
     int_vector_free(first);
     int_vector_free(second);
     int_vector_free(third);
-}
-
-int main()
-{
-    FILE* file;
-    file = fopen("geommi.txt", "r");
-    char mass[100], darr[100], dd[100];
-    fgets(mass, sizeof(mass), file);
-    fgets(darr, sizeof(darr), file);
-    fgets(dd, sizeof(dd), file);
-
-    printf("%s", mass);
-    printf("%s", darr);
-    printf("%s", dd);
-
-    double out1[3], out2[3], out3[3];
-    check_and_put(mass, out1, 1);
-    check_and_put(darr, out2, 2);
-    check_and_put(dd, out3, 3);
-
-    fclose(file);
 }
