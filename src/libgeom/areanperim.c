@@ -10,4 +10,3 @@ double gperim(double x)
 {
     return M_PI * 2 * x;
 }
-
