@@ -56,9 +56,8 @@ void int_vector_free(IntVector* v)
     v = NULL;
 }
 
-void check_and_put(char* mass, double* out, int n)
+int check(char* mass, int n, int len)
 {
-    int len = strlen(mass);
     len--;
     int point = 0, zap = 0, lscobe = 0, rscobe = 0, probls = 0, minus = 0;
     for (int i = 0; i < len; i++) {
@@ -76,6 +75,11 @@ void check_and_put(char* mass, double* out, int n)
         }
         if (mass[i] == ')') {
             lscobe++;
+            if (mass[i + 1] != '\n') {
+                printf("%s", mass);
+                printf("After function circle must be empty\n");
+                return 0;
+            }
         }
         if (mass[i] == '-') {
             minus++;
@@ -83,13 +87,15 @@ void check_and_put(char* mass, double* out, int n)
     }
     if (point > 3 || zap > 1 || zap < 1 || lscobe > 1 || lscobe < 1
         || rscobe > 1 || lscobe < 1 || probls < 1 || minus > 2) {
+        printf("%s", mass);
         printf("Error in %d params\n", n);
-        exit(1);
+        return 0;
     }
     if (!(mass[0] == 'c' && mass[1] == 'i' && mass[2] == 'r' && mass[3] == 'c'
           && mass[4] == 'l' && mass[5] == 'e' && mass[6] == '(')) {
+        printf("%s", mass);
         printf("Error in %d 'circle'\n", n);
-        exit(1);
+        return 0;
     }
     int eror = 0;
     int place = 7;
@@ -100,9 +106,16 @@ void check_and_put(char* mass, double* out, int n)
         place++;
     }
     if (eror == 0) {
+        printf("%s", mass);
         printf("Error in %d params\n", n);
-        exit(-1);
+        return 0;
     }
+    return 1;
+}
+
+void put(char* mass, double* out, int n, int len)
+{
+    len--;
     char array[len - 8];
     int count = 0;
     for (int i = 7; i < len; i++) {
@@ -112,7 +125,6 @@ void check_and_put(char* mass, double* out, int n)
     IntVector* first = int_vector_new(30);
     IntVector* second = int_vector_new(30);
     IntVector* third = int_vector_new(30);
-
     for (int i = 0; array[i] != ' '; i++) {
         int_vector_push_back(first, array[i]);
     }
@@ -137,12 +149,12 @@ void check_and_put(char* mass, double* out, int n)
     for (int i = p; i < len - 1; i++) {
         int_vector_push_back(third, array[i]);
     }
-
     out[0] = atof(first->data);
     out[1] = atof(second->data);
     out[2] = atof(third->data);
     if (out[2] < 0) {
-        printf("in %d string last number must be unsigned\n", n);
+        printf("%s", mass);
+        printf("in %d string {%lf} must be unsigned\n", n, out[2]);
         int_vector_free(first);
         int_vector_free(second);
         int_vector_free(third);
@@ -151,4 +163,14 @@ void check_and_put(char* mass, double* out, int n)
     int_vector_free(first);
     int_vector_free(second);
     int_vector_free(third);
+}
+
+int check_and_put(char* mass, double* out, int n, int len)
+{
+    int test = check(mass, n, len);
+    if (test == 1) {
+        put(mass, out, n, len);
+        return 1;
+    }
+    return 0;
 }

@@ -16,4 +16,8 @@ void p_arr(double* arr, int n);
 
 void int_vector_free(IntVector* v);
 
-void check_and_put(char* mass, double* out, int n);
+int check(char* mass, int n, int len);
+
+void put(char* mass, double* out, int n, int len);
+
+int check_and_put(char* mass, double* out, int n, int len);
