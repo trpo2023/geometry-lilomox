@@ -1,5 +1,5 @@
 #include <math.h>
 
-double garea(double x);
+double get_area(double x);
 
-double gperim(double x);
+double get_perim(double x);
