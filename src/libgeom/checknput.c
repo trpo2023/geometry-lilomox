@@ -1,7 +1,8 @@
-#include <libgeom/checknput.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+#include <libgeom/checknput.h>
 
 IntVector* int_vector_new(size_t capacity)
 {
@@ -58,8 +59,8 @@ void int_vector_free(IntVector* v)
 
 int check_syntax(char* mass, int len)
 {
-    len--;
-    int point = 0, comma = 0, left_bracket = 0, right_bracket = 0, space = 0, minus = 0;
+    int point = 0, comma = 0, left_bracket = 0, right_bracket = 0, space = 0,
+        minus = 0;
     for (int i = 0; i < len; i++) {
         if (mass[i] == ' ') {
             space++;
@@ -83,8 +84,9 @@ int check_syntax(char* mass, int len)
             minus++;
         }
     }
-    if (point > 3 || comma > 1 || comma < 1 || left_bracket > 1 || left_bracket < 1
-        || right_bracket > 1 || left_bracket < 1 || space < 1 || minus > 2) {
+    if (point > 3 || comma > 1 || comma < 1 || left_bracket > 1
+        || left_bracket < 1 || right_bracket > 1 || left_bracket < 1
+        || space < 1 || minus > 2) {
         return 11;
     }
     if (!(mass[0] == 'c' && mass[1] == 'i' && mass[2] == 'r' && mass[3] == 'c'
@@ -107,7 +109,6 @@ int check_syntax(char* mass, int len)
 
 int string_to_number(char* mass, double* out, int len)
 {
-    len--;
     char array[len - 8];
     int count = 0;
     for (int i = 7; i < len; i++) {
@@ -158,27 +159,26 @@ int string_to_number(char* mass, double* out, int len)
 
 int check_and_put(char* mass, double* out, int n, int len)
 {
-    int test = check_syntax(mass, len);
+    int test = check_syntax(mass, len - 1);
     if (test == 1) {
-        int tmp = string_to_number(mass, out, len);
+        int tmp = string_to_number(mass, out, len - 1);
         if (tmp == 1) {
             printf("%s", mass);
             printf("in %d string {%lf} must be unsigned\n", n, out[2]);
             return 0;
-        }else if(tmp == 0) {
+        } else if (tmp == 0) {
             return 1;
         }
-        return 1;
-    }else if(test == 10) {
+    } else if (test == 10) {
         printf("%s", mass);
         printf("After function circle must be empty\n");
-    }else if(test == 11) {
+    } else if (test == 11) {
         printf("%s", mass);
         printf("Error in %d params\n", n);
-    }else if(test == 12) {
+    } else if (test == 12) {
         printf("%s", mass);
         printf("Error in %d 'circle'\n", n);
-    }else if(test == 13) {
+    } else if (test == 13) {
         printf("%s", mass);
         printf("Error in %d params\n", n);
     }
