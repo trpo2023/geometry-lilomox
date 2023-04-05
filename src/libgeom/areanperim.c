@@ -1,5 +1,6 @@
-#include <libgeom/areanperim.h>
 #include <math.h>
+
+#include <libgeom/areanperim.h>
 
 double get_area(double x)
 {

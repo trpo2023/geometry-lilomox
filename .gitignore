@@ -1,1 +1,4 @@
 bin/geom
+*.d
+*.o
+*.a
