@@ -1,3 +1,5 @@
+#pragma once
+
 typedef struct Circle {
     double x;
     double y;

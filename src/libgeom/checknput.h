@@ -1,3 +1,5 @@
+#pragma once
+
 #define ERROR_AFTER_FUNC 10
 #define ERROR_IN_PARAMS 11
 #define ERROR_IN_SYNTAX 12
