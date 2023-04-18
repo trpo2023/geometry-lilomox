@@ -1,6 +1,7 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#define ERROR_AFTER_FUNC 10
+#define ERROR_IN_PARAMS 11
+#define ERROR_IN_SYNTAX 12
+#define ERROR_IN_ARGUE 13
 
 typedef struct IntVector {
     char* data;

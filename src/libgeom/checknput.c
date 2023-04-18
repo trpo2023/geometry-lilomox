@@ -2,6 +2,11 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define ERROR_AFTER_FUNC 10
+#define ERROR_IN_PARAMS 11
+#define ERROR_IN_SYNTAX 12
+#define ERROR_IN_ARGUE 13
+
 #include <libgeom/checknput.h>
 
 IntVector* int_vector_new(size_t capacity)
@@ -77,7 +82,7 @@ int check_syntax(char* mass, int len)
         if (mass[i] == ')') {
             left_bracket++;
             if (mass[i + 1] != '\n') {
-                return 10;
+                return ERROR_AFTER_FUNC;
             }
         }
         if (mass[i] == '-') {
@@ -87,11 +92,11 @@ int check_syntax(char* mass, int len)
     if (point > 3 || comma > 1 || comma < 1 || left_bracket > 1
         || left_bracket < 1 || right_bracket > 1 || left_bracket < 1
         || space < 1 || minus > 2) {
-        return 11;
+        return ERROR_IN_PARAMS;
     }
     if (!(mass[0] == 'c' && mass[1] == 'i' && mass[2] == 'r' && mass[3] == 'c'
           && mass[4] == 'l' && mass[5] == 'e' && mass[6] == '(')) {
-        return 12;
+        return ERROR_IN_SYNTAX;
     }
     int eror = 0;
     int place_of_arguments = 7;
@@ -102,7 +107,7 @@ int check_syntax(char* mass, int len)
         place_of_arguments++;
     }
     if (eror == 0) {
-        return 13;
+        return ERROR_IN_ARGUE;
     }
     return 1;
 }
@@ -169,16 +174,16 @@ int check_and_put(char* mass, double* out, int n, int len)
         } else if (tmp == 0) {
             return 1;
         }
-    } else if (test == 10) {
+    } else if (test == ERROR_AFTER_FUNC) {
         printf("%s", mass);
         printf("After function circle must be empty\n");
-    } else if (test == 11) {
+    } else if (test == ERROR_IN_PARAMS) {
         printf("%s", mass);
         printf("Error in %d params\n", n);
-    } else if (test == 12) {
+    } else if (test == ERROR_IN_SYNTAX) {
         printf("%s", mass);
         printf("Error in %d 'circle'\n", n);
-    } else if (test == 13) {
+    } else if (test == ERROR_IN_ARGUE) {
         printf("%s", mass);
         printf("Error in %d params\n", n);
     }
