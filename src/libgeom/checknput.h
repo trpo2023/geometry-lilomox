@@ -1,20 +1,21 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#pragma once
 
-typedef struct IntVector {
+#define ERROR_AFTER_FUNC 10
+#define ERROR_IN_PARAMS 11
+#define ERROR_IN_SYNTAX 12
+#define ERROR_IN_ARGUE 13
+
+typedef struct CharVector {
     char* data;
     size_t size;
     size_t capacity;
-} IntVector;
+} CharVector;
 
-IntVector* int_vector_new(size_t capacity);
+CharVector* char_vector_new(size_t capacity);
 
-int int_vector_push_back(IntVector* v, char item);
+int char_vector_push_back(CharVector* v, char item);
 
-void p_arr(double* arr, int n);
-
-void int_vector_free(IntVector* v);
+void char_vector_free(CharVector* v);
 
 int check_syntax(char* mass, int len);
 
