@@ -1,6 +1,5 @@
 bin/geom
 bin/main_test
-thirdparty/.clang-format
 *.d
 *.o
 *.a
