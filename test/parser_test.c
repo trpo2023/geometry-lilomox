@@ -85,6 +85,32 @@ CTEST(checknput, check_syntax)
     ASSERT_EQUAL(str5, expected);
 }
 
+CTEST(checknput, check_bad_syntax)
+{
+    char string1[] = "circle(12 2,1)123\n";
+    char string2[] = "cirlce(123 -200 23)\n";
+    char string3[] = "crcle(-33 24,53)\n";
+    char string4[] = "circle(1 0,1000)df\n";
+    char string5[] = "circle(123, -88, 8)\n";
+    const int expected1 = 10;
+    const int expected2 = 11;
+    const int expected3 = 12;
+    const int expected4 = 10;
+    const int expected5 = 11;
+
+    int str1 = check_syntax(string1, strlen(string1));
+    int str2 = check_syntax(string2, strlen(string2));
+    int str3 = check_syntax(string3, strlen(string3));
+    int str4 = check_syntax(string4, strlen(string4));
+    int str5 = check_syntax(string5, strlen(string5));
+
+    ASSERT_EQUAL(str1, expected1);
+    ASSERT_EQUAL(str2, expected2);
+    ASSERT_EQUAL(str3, expected3);
+    ASSERT_EQUAL(str4, expected4);
+    ASSERT_EQUAL(str5, expected5);
+}
+
 CTEST(checknput, string_to_number)
 {
     char string1[] = "circle(12342 22,  109)\n";
@@ -94,6 +120,29 @@ CTEST(checknput, string_to_number)
     char string5[] = "circle(12332 -838,  18)\n";
     double buf1[3], buf2[3], buf3[3], buf4[3], buf5[3];
     const int expected = 1;
+
+    int str1 = string_to_number(string1, buf1, strlen(string1));
+    int str2 = string_to_number(string2, buf2, strlen(string2));
+    int str3 = string_to_number(string3, buf3, strlen(string3));
+    int str4 = string_to_number(string4, buf4, strlen(string4));
+    int str5 = string_to_number(string5, buf5, strlen(string5));
+
+    ASSERT_EQUAL(str1, expected);
+    ASSERT_EQUAL(str2, expected);
+    ASSERT_EQUAL(str3, expected);
+    ASSERT_EQUAL(str4, expected);
+    ASSERT_EQUAL(str5, expected);
+}
+
+CTEST(checknput, string_to_bad_number)
+{
+    char string1[] = "circle(12342 22,-109)\n";
+    char string2[] = "circle(673 -23430,-2)\n";
+    char string3[] = "circle(-683 2324,-13)\n";
+    char string4[] = "circle(13 958,-1003254)\n";
+    char string5[] = "circle(12332 -838,-18)\n";
+    double buf1[3], buf2[3], buf3[3], buf4[3], buf5[3];
+    const int expected = 0;
 
     int str1 = string_to_number(string1, buf1, strlen(string1));
     int str2 = string_to_number(string2, buf2, strlen(string2));
